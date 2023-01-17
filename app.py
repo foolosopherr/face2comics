@@ -10,7 +10,7 @@ DEVICE = 'cpu'
 LEARNING_RATE = 2e-4
 CHECKPOINT_GEN = "gen.pth.tar"
 
-@st.cache
+@st.experimental_singleton
 def load_model():
     gen = Generator(in_channels=3).to(DEVICE)
     opt_gen = optim.Adam(gen.parameters(), lr=LEARNING_RATE, betas=(0.5, 0.999))
