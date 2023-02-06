@@ -10,7 +10,7 @@ DEVICE = 'cpu'
 LEARNING_RATE = 2e-4
 CHECKPOINT_GEN = "gen.pth.tar"
 
-@st.experimental_singleton
+# @st.cache
 def load_model():
     gen = Generator(in_channels=3).to(DEVICE)
     opt_gen = optim.Adam(gen.parameters(), lr=LEARNING_RATE, betas=(0.5, 0.999))
@@ -31,7 +31,7 @@ st.header('The model was trained for 50 epochs on 256x256 images')
 tabs = ['Your image', 'Images from validation set', 'Images after every second epoch']
 tab1, tab2, tab3 = st.tabs(tabs=tabs)
 
-def transform_image(raw_image):
+def transform_image(raw_image, model=model):
     transformer = transforms.Compose([
             transforms.Resize((256, 256)),
             # transforms.Resize((512, 512)),
